@@ -3,5 +3,13 @@
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
-  ]
+  ],
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/modules": ["./src/modules/*"]
+    },
+    "types": ["vitest/globals"]
+  }
 }
