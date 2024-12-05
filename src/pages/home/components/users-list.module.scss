@@ -1,0 +1,15 @@
+.userItem {
+  @apply w-full flex flex-col gap-1 h-fit p-4 bg-blue-100 rounded-lg shadow-md cursor-pointer;
+
+  .name {
+    @apply text-sm font-bold;
+  }
+
+  .subtitle {
+    @apply text-xs text-gray-500;
+  }
+}
+
+.usersContainer {
+  @apply flex flex-col gap-2;
+}

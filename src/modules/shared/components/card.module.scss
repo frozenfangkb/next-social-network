@@ -1,0 +1,7 @@
+.card {
+  @apply bg-white shadow-md rounded-lg overflow-x-hidden overflow-y-auto p-4 flex flex-col gap-4;
+}
+
+.title {
+  @apply text-xl font-bold;
+}

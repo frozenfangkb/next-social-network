@@ -10,6 +10,6 @@
       "@/*": ["./src/*"],
       "@/modules": ["./src/modules/*"]
     },
-    "types": ["vitest/globals"]
+    "types": ["vitest/globals", "@testing-library/jest-dom"]
   }
 }
