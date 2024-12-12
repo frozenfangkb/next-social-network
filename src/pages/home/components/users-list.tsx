@@ -7,7 +7,7 @@ export const UsersList = () => {
   const { data: users, isFetching: loading } = useUsers();
 
   return (
-    <Card title='User list'>
+    <Card title='User list' classNames={styles.usersCard}>
       <div className={styles.usersContainer}>
         {loading && <p>Loading...</p>}
         {!loading && !users.length && <p>No users found</p>}

@@ -1,5 +1,17 @@
 .userItem {
-  @apply w-full flex flex-col gap-1 h-fit p-4 bg-blue-100 rounded-lg shadow-md cursor-pointer;
+  @apply flex flex-col gap-1 p-4 bg-blue-100 rounded-lg shadow-md cursor-pointer transition-all;
+
+  &:hover {
+    @apply bg-blue-500;
+
+    .name {
+      @apply text-white;
+    }
+
+    .subtitle {
+      @apply text-white;
+    }
+  }
 
   .name {
     @apply text-sm font-bold;
@@ -12,4 +24,14 @@
 
 .usersContainer {
   @apply flex flex-col gap-2;
+}
+
+.usersCard {
+  width: 100vw;
+  height: 100vh;
+
+  @media screen and (min-width: 768px) {
+    width: 50vw;
+    height: 50vh;
+  }
 }
