@@ -5,17 +5,24 @@ import { useUsers } from './use-users.ts';
 
 vi.mock('../user-slice.ts');
 
-const mockUseFetchUsersQuery = vi.mocked(useFetchUsersQuery).mockReturnValue({
-  useFetchUsersQuery: vi.fn(),
-} as unknown as ReturnType<typeof useFetchUsersQuery>);
+const mockUseFetchUsersQueryValue = {
+  data: undefined,
+  isFetching: false,
+  isError: false,
+} as unknown as ReturnType<typeof useFetchUsersQuery>;
+
+const mockUseFetchUsersQuery = vi
+  .mocked(useFetchUsersQuery)
+  .mockReturnValue(mockUseFetchUsersQueryValue);
 
 describe('useUsers', () => {
   it('should return default data when no users are fetched', () => {
     mockUseFetchUsersQuery.mockReturnValue({
+      ...mockUseFetchUsersQueryValue,
       data: undefined,
       isFetching: false,
       isError: false,
-    } as unknown as ReturnType<typeof useFetchUsersQuery>);
+    });
 
     const { result } = renderHook(() => useUsers());
     expect(result.current).toEqual({
@@ -28,10 +35,11 @@ describe('useUsers', () => {
   it('should return user data when users are fetched', () => {
     const users = [{ id: 1, name: 'Alice' }];
     mockUseFetchUsersQuery.mockReturnValue({
+      ...mockUseFetchUsersQueryValue,
       data: users,
       isFetching: false,
       isError: false,
-    } as unknown as ReturnType<typeof useFetchUsersQuery>);
+    });
 
     const { result } = renderHook(() => useUsers());
     expect(result.current).toEqual({
@@ -43,10 +51,11 @@ describe('useUsers', () => {
 
   it('should indicate when data is being fetched', () => {
     mockUseFetchUsersQuery.mockReturnValue({
+      ...mockUseFetchUsersQueryValue,
       data: undefined,
       isFetching: true,
       isError: false,
-    } as unknown as ReturnType<typeof useFetchUsersQuery>);
+    });
 
     const { result } = renderHook(() => useUsers());
     expect(result.current).toEqual({
@@ -58,10 +67,11 @@ describe('useUsers', () => {
 
   it('should indicate when an error occurs', () => {
     mockUseFetchUsersQuery.mockReturnValue({
+      ...mockUseFetchUsersQueryValue,
       data: undefined,
       isFetching: false,
       isError: true,
-    } as unknown as ReturnType<typeof useFetchUsersQuery>);
+    });
 
     const { result } = renderHook(() => useUsers());
     expect(result.current).toEqual({

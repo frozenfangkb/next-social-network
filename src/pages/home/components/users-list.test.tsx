@@ -1,60 +1,71 @@
+import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { describe, it, vi, expect } from 'vitest';
 import { UsersList } from './users-list';
 import { useUsers } from '../../../modules/user/api/hooks/use-users.ts';
+import { Company, User } from '../../../modules/user/models/user.ts';
 
-vi.mock('../../../modules/user/api/hooks/use-users.ts', () => ({
-  useUsers: vi.fn(() => ({
-    users: [],
-    loading: false,
-    fetchUsers: vi.fn(),
-    error: false,
-  })),
-}));
+vi.mock('../../../modules/user/api/hooks/use-users.ts');
 
-describe('<UsersList />', () => {
-  it('renders loading state when loading is true', () => {
-    vi.mocked(useUsers).mockReturnValueOnce({
-      users: [],
-      loading: true,
-      fetchUsers: vi.fn(),
-      error: false,
+const mockUseUsersValue = {
+  useUsers: vi.fn(),
+} as unknown as ReturnType<typeof useUsers>;
+
+const mockedUseUsers = vi.mocked(useUsers).mockReturnValue(mockUseUsersValue);
+
+describe('UsersList', () => {
+  it('renders loading state when fetching data', () => {
+    mockedUseUsers.mockReturnValue({
+      ...mockUseUsersValue,
+      data: [],
+      isFetching: true,
     });
+
     render(<UsersList />);
+
     expect(screen.getByText('Loading...')).toBeInTheDocument();
   });
 
-  it('renders "No users found" when there are no users and loading is false', () => {
-    vi.mocked(useUsers).mockReturnValueOnce({
-      users: [],
-      loading: false,
-      fetchUsers: vi.fn(),
-      error: false,
+  it('renders "No users found" when there are no users', () => {
+    mockedUseUsers.mockReturnValue({
+      ...mockUseUsersValue,
+      data: [],
+      isFetching: false,
     });
+
     render(<UsersList />);
+
     expect(screen.getByText('No users found')).toBeInTheDocument();
   });
 
-  it('renders user items when users are available', () => {
-    const users = [
-      {
-        id: 1,
-        name: 'John Doe',
-        email: 'john@example.com',
-        company: { name: 'Acme Inc.' },
-      },
-    ];
-
-    vi.mocked(useUsers).mockReturnValueOnce({
-      users,
-      loading: false,
-      fetchUsers: vi.fn(),
+  it('renders a list of users when data is available', () => {
+    mockedUseUsers.mockReturnValue({
+      ...mockUseUsersValue,
+      data: [
+        {
+          id: 1,
+          name: 'John Doe',
+          email: 'john.doe@example.com',
+          company: { name: 'Company A' } as unknown as Company,
+        },
+        {
+          id: 2,
+          name: 'Jane Smith',
+          email: 'jane.smith@example.com',
+          company: { name: 'Company B' } as unknown as Company,
+        },
+      ] as unknown as User[],
+      isFetching: false,
     });
 
     render(<UsersList />);
+
     expect(screen.getByText('John Doe')).toBeInTheDocument();
     expect(
-      screen.getByText('john@example.com · Acme Inc.'),
+      screen.getByText('john.doe@example.com · Company A'),
+    ).toBeInTheDocument();
+    expect(screen.getByText('Jane Smith')).toBeInTheDocument();
+    expect(
+      screen.getByText('jane.smith@example.com · Company B'),
     ).toBeInTheDocument();
   });
 });
