@@ -1,29 +1,11 @@
-import { useCallback, useState } from 'react';
-import { User } from '../../models/user.ts';
-import { getUsers } from '../user-api.ts';
+import { useFetchUsersQuery } from '../user-slice.ts';
 
 export const useUsers = () => {
-  const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<boolean>(false);
-
-  const fetchUsers = useCallback(async () => {
-    setLoading(true);
-    setError(false);
-    try {
-      const response = await getUsers();
-      setUsers(response);
-    } catch {
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  const { data, isFetching, isError } = useFetchUsersQuery();
 
   return {
-    users,
-    loading,
-    error,
-    fetchUsers,
+    data: data ?? [],
+    isFetching,
+    isError,
   };
 };

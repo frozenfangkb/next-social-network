@@ -1,15 +1,10 @@
 import { useUsers } from '../../../modules/user/api/hooks/use-users.ts';
-import { useEffect } from 'react';
 import { Card } from '../../../modules/shared/components/card.tsx';
 
 import styles from './users-list.module.scss';
 
 export const UsersList = () => {
-  const { users, loading, fetchUsers } = useUsers();
-
-  useEffect(() => {
-    fetchUsers();
-  }, [fetchUsers]);
+  const { data: users, isFetching: loading } = useUsers();
 
   return (
     <Card title='User list'>

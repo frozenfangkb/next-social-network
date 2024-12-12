@@ -1,59 +1,73 @@
-import { act, renderHook } from '@testing-library/react';
-import { useUsers } from './use-users';
-import { describe, expect, it, vi, beforeEach } from 'vitest';
-import { getUsers } from '../user-api.ts';
+import { renderHook } from '@testing-library/react';
+import { vi, expect, describe, it } from 'vitest';
+import { useFetchUsersQuery } from '../user-slice.ts';
+import { useUsers } from './use-users.ts';
 
-vi.mock('../user-api.ts', () => ({
-  getUsers: vi.fn(),
-}));
+vi.mock('../user-slice.ts');
+
+const mockUseFetchUsersQuery = vi.mocked(useFetchUsersQuery).mockReturnValue({
+  useFetchUsersQuery: vi.fn(),
+} as unknown as ReturnType<typeof useFetchUsersQuery>);
 
 describe('useUsers', () => {
-  const mockUsers = [{ id: 1, name: 'John Doe' }];
+  it('should return default data when no users are fetched', () => {
+    mockUseFetchUsersQuery.mockReturnValue({
+      data: undefined,
+      isFetching: false,
+      isError: false,
+    } as unknown as ReturnType<typeof useFetchUsersQuery>);
 
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
-  it('should initialize with default values', () => {
     const { result } = renderHook(() => useUsers());
-    expect(result.current.users).toEqual([]);
-    expect(result.current.loading).toBe(false);
-    expect(result.current.error).toBe(false);
-  });
-
-  it('should set loading to true when fetchUsers is called', async () => {
-    const { result } = renderHook(() => useUsers());
-
-    act(() => {
-      result.current.fetchUsers();
+    expect(result.current).toEqual({
+      data: [],
+      isFetching: false,
+      isError: false,
     });
-
-    expect(result.current.loading).toBe(true);
   });
 
-  it('should fetch users successfully', async () => {
-    (getUsers as jest.Mock).mockResolvedValueOnce(mockUsers);
+  it('should return user data when users are fetched', () => {
+    const users = [{ id: 1, name: 'Alice' }];
+    mockUseFetchUsersQuery.mockReturnValue({
+      data: users,
+      isFetching: false,
+      isError: false,
+    } as unknown as ReturnType<typeof useFetchUsersQuery>);
+
     const { result } = renderHook(() => useUsers());
-
-    await act(async () => {
-      await result.current.fetchUsers();
+    expect(result.current).toEqual({
+      data: users,
+      isFetching: false,
+      isError: false,
     });
-
-    expect(result.current.users).toEqual(mockUsers);
-    expect(result.current.loading).toBe(false);
-    expect(result.current.error).toBe(false);
   });
 
-  it('should handle errors during fetch', async () => {
-    (getUsers as jest.Mock).mockRejectedValueOnce(new Error('Error fetching users'));
+  it('should indicate when data is being fetched', () => {
+    mockUseFetchUsersQuery.mockReturnValue({
+      data: undefined,
+      isFetching: true,
+      isError: false,
+    } as unknown as ReturnType<typeof useFetchUsersQuery>);
+
     const { result } = renderHook(() => useUsers());
-
-    await act(async () => {
-      await result.current.fetchUsers();
+    expect(result.current).toEqual({
+      data: [],
+      isFetching: true,
+      isError: false,
     });
+  });
 
-    expect(result.current.error).toBe(true);
-    expect(result.current.users).toEqual([]);
-    expect(result.current.loading).toBe(false);
+  it('should indicate when an error occurs', () => {
+    mockUseFetchUsersQuery.mockReturnValue({
+      data: undefined,
+      isFetching: false,
+      isError: true,
+    } as unknown as ReturnType<typeof useFetchUsersQuery>);
+
+    const { result } = renderHook(() => useUsers());
+    expect(result.current).toEqual({
+      data: [],
+      isFetching: false,
+      isError: true,
+    });
   });
 });
