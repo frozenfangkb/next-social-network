@@ -5,6 +5,9 @@ import { useUsers } from '@/modules/user/api/hooks/use-users.ts';
 import { Company, User } from '@/modules/user/models/user.ts';
 
 vi.mock('@/modules/user/api/hooks/use-users.ts');
+vi.mock('react-router', () => ({
+  useNavigate: vi.fn(),
+}));
 
 const mockUseUsersValue = {
   useUsers: vi.fn(),
