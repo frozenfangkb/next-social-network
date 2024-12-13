@@ -25,7 +25,10 @@ export const AlbumGroup = ({ albums }: AvatarGroupProps) => {
             zIndex: 3 - index,
           }}
         >
-          <div className={styles.cover} />
+          <div
+            className={styles.cover}
+            style={{ opacity: `${index * 0.25}` }}
+          />
           <img
             className={styles.albumPhoto}
             src={getAlbumPhoto(album.id)?.thumbnailUrl ?? ''}
