@@ -1,0 +1,11 @@
+.container {
+  @apply flex flex-col gap-4;
+}
+
+.section {
+  @apply flex flex-col gap-2;
+}
+
+.item {
+  @apply flex flex-row gap-4 items-center border-b-2 border-gray-300;
+}

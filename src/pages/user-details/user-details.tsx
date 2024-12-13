@@ -8,6 +8,7 @@ import { AlbumGroup } from '@/modules/shared/components/album-group/album-group.
 import { UserDetailsData } from '@/pages/home/components/user-details-data/user-details-data.tsx';
 import { AlbumList } from '@/pages/home/components/album-list/album-list.tsx';
 import { useMemo } from 'react';
+import { TodoSection } from '@/modules/shared/components/todo-section/todo-section.tsx';
 
 export const UserDetails = () => {
   const params = useParams();
@@ -41,6 +42,9 @@ export const UserDetails = () => {
       <div className='flex flex-row md:justify-between'>
         <UserDetailsData userData={userData} />
         <AlbumList albums={albums} />
+      </div>
+      <div className='flex flex-row md:justify-between'>
+        <TodoSection userId={userData?.id} />
       </div>
     </div>
   );
