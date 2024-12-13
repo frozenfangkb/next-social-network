@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, vi, expect } from 'vitest';
-import { UserAlbumList } from './user-album-list';
+import { AlbumList } from './album-list.tsx';
 import { usePhotos } from '@/modules/photo/api/hooks/use-photos.ts';
 import { Album } from '@/modules/album/models/album.ts';
 
@@ -29,7 +29,7 @@ describe('UserAlbumList', () => {
       { id: 2, title: 'Album 2' },
     ] as unknown as Album[];
 
-    render(<UserAlbumList albums={albums} />);
+    render(<AlbumList albums={albums} />);
 
     expect(screen.getByText('Albums')).toBeInTheDocument();
 
@@ -50,7 +50,7 @@ describe('UserAlbumList', () => {
 
     const albums = [{ id: 1, title: 'Album 1' }] as unknown as Album[];
 
-    render(<UserAlbumList albums={albums} />);
+    render(<AlbumList albums={albums} />);
 
     expect(screen.getByText('Album 1')).toBeInTheDocument();
     expect(screen.queryByRole('img')).toBeNull();

@@ -6,7 +6,7 @@ import { FadeLoader } from 'react-spinners';
 import { useUsers } from '@/modules/user/api/hooks/use-users.ts';
 import { AlbumGroup } from '@/modules/shared/components/album-group/album-group.tsx';
 import { UserDetailsData } from '@/pages/home/components/user-details-data/user-details-data.tsx';
-import { UserAlbumList } from '@/pages/home/components/user-album-list/user-album-list.tsx';
+import { AlbumList } from '@/pages/home/components/album-list/album-list.tsx';
 
 export const UserDetails = () => {
   const params = useParams();
@@ -35,7 +35,7 @@ export const UserDetails = () => {
       </div>
       <div className='flex flex-row md:justify-between'>
         <UserDetailsData userData={userData} />
-        <UserAlbumList albums={albums} />
+        <AlbumList albums={albums} />
       </div>
     </div>
   );

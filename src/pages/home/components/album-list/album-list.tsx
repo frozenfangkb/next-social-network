@@ -1,13 +1,13 @@
 import { Album } from '@/modules/album/models/album.ts';
 
-import styles from './user-album-list.module.scss';
+import styles from './album-list.module.scss';
 import { usePhotos } from '@/modules/photo/api/hooks/use-photos.ts';
 
 interface UserAlbumListProps {
   albums: Album[];
 }
 
-export const UserAlbumList = ({ albums }: UserAlbumListProps) => {
+export const AlbumList = ({ albums }: UserAlbumListProps) => {
   const { getAlbumPhotos } = usePhotos();
 
   return (
