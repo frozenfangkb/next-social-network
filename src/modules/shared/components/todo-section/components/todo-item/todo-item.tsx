@@ -1,6 +1,6 @@
 import { ToDo } from '@/modules/todo/models/todo.ts';
 
-import styles from '../todo-section.module.scss';
+import styles from '../../todo-section.module.scss';
 
 interface TodoItemProps {
   todo: ToDo;
@@ -15,9 +15,11 @@ export const TodoItem = ({
 }: TodoItemProps) => {
   return (
     <div className={styles.item}>
-      <button onClick={() => removeTodoAction(todo.id)}>X</button>
-      <p>{todo.title}</p>
-      <div className='self-end'>
+      <div className='flex flex-row gap-2 items-center'>
+        <button onClick={() => removeTodoAction(todo.id)}>X</button>
+        <p>{todo.title}</p>
+      </div>
+      <div>
         <input
           type='checkbox'
           checked={todo.completed}

@@ -7,5 +7,5 @@
 }
 
 .item {
-  @apply flex flex-row gap-4 items-center border-b-2 border-gray-300;
+  @apply flex flex-row justify-between gap-4 items-center border-b-2 border-gray-300;
 }

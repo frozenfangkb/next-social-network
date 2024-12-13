@@ -2,8 +2,9 @@ import styles from './todo-section.module.scss';
 import { useTodos } from '@/modules/todo/api/hooks/use-todos.ts';
 import { useEffect, useState } from 'react';
 import { ToDo } from '@/modules/todo/models/todo.ts';
-import { TodoItem } from '@/modules/shared/components/todo-section/components/todo-item.tsx';
+import { TodoItem } from '@/modules/shared/components/todo-section/components/todo-item/todo-item.tsx';
 import { cloneDeep } from 'lodash';
+import { TodoForm } from '@/modules/shared/components/todo-section/components/todo-form/todo-form.tsx';
 
 interface TodoSectionProps {
   userId?: number;
@@ -31,9 +32,18 @@ export const TodoSection = ({ userId }: TodoSectionProps) => {
     }
   };
 
+  const handleAddItem = (todo: ToDo) => {
+    setUserTodos([todo, ...userTodos]);
+  };
+
   return (
     <div className={styles.container}>
       <h1>ToDos</h1>
+      <TodoForm
+        submitForm={handleAddItem}
+        higherTodoNumber={userTodos.length + 2}
+        userId={Number(userId)}
+      />
       <div className={styles.section}>
         {userTodos?.map(todo => (
           <TodoItem

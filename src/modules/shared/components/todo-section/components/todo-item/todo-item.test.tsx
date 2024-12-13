@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { TodoItem } from './todo-item';
+import { TodoItem } from './todo-item.tsx';
 
 describe('TodoItem', () => {
   it('renders the todo item properly', () => {
