@@ -24,6 +24,7 @@ export const TodoItem = ({
           type='checkbox'
           checked={todo.completed}
           onChange={() => changeTodoCompleted(todo.id)}
+          data-testid={`toggle-${todo.id}`}
         />
       </div>
     </div>
