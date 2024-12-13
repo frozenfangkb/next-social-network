@@ -5,3 +5,38 @@
 .title {
   @apply text-xl font-bold flex flex-row flex-1 justify-start items-center;
 }
+
+.userDetailsSubtitle {
+  @apply flex flex-col gap-2;
+}
+
+.userDetailsSection {
+  @apply flex flex-col;
+
+  width: 100vw;
+
+  @media screen and (min-width: 768px) {
+    width: 40vw;
+  }
+
+  .userDetailsSectionRow:not(:last-child) {
+    @apply border-b-0;
+  }
+
+  .userDetailsSectionRow:first-child {
+    @apply border-t-2;
+  }
+}
+
+.userDetailsSectionRow {
+  @apply flex flex-row justify-between items-center border-t-2 border-b-2 border-gray-300
+    py-2;
+}
+
+.userDetailsLabel {
+  @apply font-bold text-left;
+}
+
+.userDetailsValue {
+  @apply font-normal text-right;
+}
