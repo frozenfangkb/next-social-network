@@ -23,7 +23,7 @@
 }
 
 .usersContainer {
-  @apply flex flex-col gap-2;
+  @apply flex flex-col gap-2 overflow-y-auto;
 }
 
 .usersCard {
