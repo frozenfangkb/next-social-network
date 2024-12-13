@@ -3,7 +3,9 @@
 }
 
 .section {
-  @apply flex flex-col gap-2;
+  @apply flex flex-col gap-2 overflow-y-auto;
+
+  height: 30vh;
 }
 
 .item {
