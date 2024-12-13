@@ -14,14 +14,14 @@ export const AlbumGroup = ({ albums }: AvatarGroupProps) => {
   return (
     <div
       className={styles.albumGroup}
-      style={{ width: `${3 * desiredAlbums.length}rem`, height: '4rem' }}
+      style={{ width: `${2.5 * desiredAlbums.length}rem`, height: '4rem' }}
     >
       {desiredAlbums.map((album, index) => (
         <div
           key={album.id}
           className={styles.album}
           style={{
-            left: `${album.id * 15}%`,
+            left: `${index * 15}%`,
             zIndex: 3 - index,
           }}
         >
