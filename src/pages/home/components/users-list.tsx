@@ -1,5 +1,5 @@
 import { useUsers } from '@/modules/user/api/hooks/use-users.ts';
-import { Card } from '@/modules/shared/components/card.tsx';
+import { Card } from '@/modules/shared/components/card/card.tsx';
 
 import styles from './users-list.module.scss';
 

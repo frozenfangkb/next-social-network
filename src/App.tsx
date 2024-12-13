@@ -4,6 +4,7 @@ import { Home } from './pages/home/home.tsx';
 import { Navigate } from 'react-router';
 import { Provider } from 'react-redux';
 import store from './store';
+import { UserDetails } from '@/pages/user-details/user-details.tsx';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
           <Route path='/' element={<Layout />}>
             <Route path='/' element={<Navigate to='/home' />} />
             <Route path='/home' element={<Home />} />
+            <Route path='/user/:userId' element={<UserDetails />} />
           </Route>
         </Routes>
       </Router>

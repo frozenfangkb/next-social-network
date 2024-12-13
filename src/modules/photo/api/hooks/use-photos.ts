@@ -6,7 +6,7 @@ export const usePhotos = () => {
 
   const getAlbumPhoto = useCallback(
     (albumId: number) => {
-      return data?.filter(photo => photo.albumId === albumId);
+      return data?.find(photo => photo.albumId === albumId);
     },
     [data],
   );

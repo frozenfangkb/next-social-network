@@ -9,5 +9,8 @@ import { Photo } from '@/modules/photo/models/photo.ts';
  * @param {PhotoSchema} photo - The photo object in schema format to be converted.
  * @returns {Photo} The photo object in application model format.
  */
-export const adaptPhotoSchemaToModel = (photo: PhotoSchema): Photo =>
-  photo as Photo;
+export const adaptPhotoSchemaToModel = (photo: PhotoSchema): Photo => ({
+  ...photo,
+  thumbnailUrl: 'https://picsum.photos/50/50',
+  url: 'https://picsum.photos/200',
+});

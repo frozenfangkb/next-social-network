@@ -5,8 +5,11 @@ import { adaptAlbumSchemaToModel } from '@/modules/album/api/album-adapters.ts';
 
 const AlbumSlice = apiSlice.injectEndpoints({
   endpoints: ({ query }) => ({
-    fetchAlbums: query<Album[], string>({
+    fetchAlbums: query<Album[], string | undefined>({
       queryFn: async (userId: string) => {
+        if (!userId) {
+          return { data: [] };
+        }
         try {
           const response = await getUserAlbums(userId);
 

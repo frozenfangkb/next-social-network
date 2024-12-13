@@ -1,0 +1,18 @@
+.albumGroup {
+  @apply relative;
+}
+
+.album {
+  @apply absolute;
+
+  width: 4rem;
+  height: 4rem;
+}
+
+.albumPhoto {
+  @apply w-full h-full object-cover;
+}
+
+.cover {
+  @apply absolute w-full h-full bg-black;
+}

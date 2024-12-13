@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react';
 import { usePhotos } from './use-photos';
-import { vi, describe, it, expect } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { useFetchPhotosQuery } from '@/modules/photo/api/photo-slice.ts';
 
 vi.mock('@/modules/photo/api/photo-slice.ts');
@@ -15,52 +15,43 @@ const useFetchPhotosMocked = vi
   .mocked(useFetchPhotosQuery)
   .mockReturnValue(useFetchPhotosQueryValue);
 
+const mockData = [
+  { id: 1, albumId: 1, title: 'Photo 1' },
+  { id: 2, albumId: 2, title: 'Photo 2' },
+  { id: 3, albumId: 1, title: 'Photo 3' },
+];
+
 describe('usePhotos', () => {
-  it('should return photos for a specific albumId', () => {
-    const mockData = [
-      { id: 1, albumId: 1, title: 'Photo 1' },
-      { id: 2, albumId: 2, title: 'Photo 2' },
-      { id: 3, albumId: 1, title: 'Photo 3' },
-    ];
-
+  it('should return the correct photo for a given albumId', () => {
     useFetchPhotosMocked.mockReturnValue({
       ...useFetchPhotosQueryValue,
       data: mockData,
     });
 
     const { result } = renderHook(() => usePhotos());
-    const albumPhotos = result.current.getAlbumPhoto(1);
+    const photo = result.current.getAlbumPhoto(1);
 
-    expect(albumPhotos).toEqual([
-      { id: 1, albumId: 1, title: 'Photo 1' },
-      { id: 3, albumId: 1, title: 'Photo 3' },
-    ]);
+    expect(photo).toEqual(mockData[0]);
   });
 
-  it('should return an empty array if no photos match the albumId', () => {
-    const mockData = [
-      { id: 1, albumId: 1, title: 'Photo 1' },
-      { id: 2, albumId: 2, title: 'Photo 2' },
-      { id: 3, albumId: 1, title: 'Photo 3' },
-    ];
-
+  it('should return undefined if the albumId does not exist', () => {
     useFetchPhotosMocked.mockReturnValue({
       ...useFetchPhotosQueryValue,
       data: mockData,
     });
 
     const { result } = renderHook(() => usePhotos());
-    const albumPhotos = result.current.getAlbumPhoto(3);
+    const photo = result.current.getAlbumPhoto(999);
 
-    expect(albumPhotos).toEqual([]);
+    expect(photo).toBeUndefined();
   });
 
-  it('should return undefined if data is not available', () => {
+  it('should return undefined if data is undefined', () => {
     useFetchPhotosMocked.mockReturnValue({ ...useFetchPhotosQueryValue });
 
     const { result } = renderHook(() => usePhotos());
-    const albumPhotos = result.current.getAlbumPhoto(1);
+    const photo = result.current.getAlbumPhoto(1);
 
-    expect(albumPhotos).toBeUndefined();
+    expect(photo).toBeUndefined();
   });
 });

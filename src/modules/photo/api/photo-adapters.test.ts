@@ -9,8 +9,8 @@ describe('adaptPhotoSchemaToModel', () => {
       albumId: 1,
       id: 101,
       title: 'Sample Photo',
-      url: 'https://example.com/photo.jpg',
-      thumbnailUrl: 'https://example.com/thumb.jpg',
+      url: 'https://picsum.photos/200',
+      thumbnailUrl: 'https://picsum.photos/50/50',
     };
 
     const result: Photo = adaptPhotoSchemaToModel(photoSchema);
@@ -19,22 +19,8 @@ describe('adaptPhotoSchemaToModel', () => {
       albumId: 1,
       id: 101,
       title: 'Sample Photo',
-      url: 'https://example.com/photo.jpg',
-      thumbnailUrl: 'https://example.com/thumb.jpg',
+      url: 'https://picsum.photos/200',
+      thumbnailUrl: 'https://picsum.photos/50/50',
     });
-  });
-
-  it('should retain the same reference when converting the object', () => {
-    const photoSchema: PhotoSchema = {
-      albumId: 1,
-      id: 102,
-      title: 'Another Photo',
-      url: 'https://example.com/another-photo.jpg',
-      thumbnailUrl: 'https://example.com/another-thumb.jpg',
-    };
-
-    const result: Photo = adaptPhotoSchemaToModel(photoSchema);
-
-    expect(result).toBe(photoSchema);
   });
 });

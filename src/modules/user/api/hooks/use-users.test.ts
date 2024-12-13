@@ -28,6 +28,7 @@ describe('useUsers', () => {
     expect(result.current).toEqual({
       data: [],
       isFetching: false,
+      getUserData: expect.any(Function),
       isError: false,
     });
   });
@@ -45,8 +46,37 @@ describe('useUsers', () => {
     expect(result.current).toEqual({
       data: users,
       isFetching: false,
+      getUserData: expect.any(Function),
       isError: false,
     });
+  });
+
+  it('should return user data when there is data in the store', () => {
+    const users = [{ id: 1, name: 'Alice' }];
+    mockUseFetchUsersQuery.mockReturnValue({
+      ...mockUseFetchUsersQueryValue,
+      data: users,
+      isFetching: false,
+      isError: false,
+    });
+
+    const { result } = renderHook(() => useUsers());
+
+    expect(result.current.getUserData(1)).toEqual(users[0]);
+  });
+
+  it("shouldn't return user data when there is data in the store but the wrong id is entered", () => {
+    const users = [{ id: 1, name: 'Alice' }];
+    mockUseFetchUsersQuery.mockReturnValue({
+      ...mockUseFetchUsersQueryValue,
+      data: users,
+      isFetching: false,
+      isError: false,
+    });
+
+    const { result } = renderHook(() => useUsers());
+
+    expect(result.current.getUserData(2)).toEqual(undefined);
   });
 
   it('should indicate when data is being fetched', () => {
@@ -61,6 +91,7 @@ describe('useUsers', () => {
     expect(result.current).toEqual({
       data: [],
       isFetching: true,
+      getUserData: expect.any(Function),
       isError: false,
     });
   });
@@ -77,6 +108,7 @@ describe('useUsers', () => {
     expect(result.current).toEqual({
       data: [],
       isFetching: false,
+      getUserData: expect.any(Function),
       isError: true,
     });
   });
