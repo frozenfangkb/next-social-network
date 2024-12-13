@@ -11,5 +11,12 @@ export const usePhotos = () => {
     [data],
   );
 
-  return { getAlbumPhoto };
+  const getAlbumPhotos = useCallback(
+    (albumId: number) => {
+      return data?.filter(photo => photo.albumId === albumId);
+    },
+    [data],
+  );
+
+  return { getAlbumPhoto, getAlbumPhotos };
 };

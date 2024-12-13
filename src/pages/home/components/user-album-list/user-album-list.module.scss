@@ -1,0 +1,21 @@
+.container {
+  @apply flex flex-col gap-2 text-right;
+
+  width: 40vw;
+}
+
+.item {
+  @apply text-left font-bold capitalize flex flex-col gap-2 py-2;
+}
+
+.albumList {
+  @apply flex flex-row gap-2 w-full overflow-x-auto;
+
+  height: 64px;
+}
+
+.itemList {
+  @apply overflow-y-scroll border-t-2 border-b-2 border-gray-300;
+
+  height: 250px;
+}
