@@ -1,5 +1,4 @@
 import { useUsers } from '@/modules/user/api/hooks/use-users.ts';
-import { Card } from '@/modules/shared/components/card/card.tsx';
 
 import styles from './users-list.module.scss';
 import { useNavigate } from 'react-router';
@@ -13,7 +12,8 @@ export const UsersList = () => {
   };
 
   return (
-    <Card title='User list' classNames={styles.usersCard}>
+    <div className='flex flex-col gap-4'>
+      <h1>Users List</h1>
       <div className={styles.usersContainer}>
         {loading && <p>Loading...</p>}
         {!loading && !users.length && <p>No users found</p>}
@@ -32,6 +32,6 @@ export const UsersList = () => {
             </div>
           ))}
       </div>
-    </Card>
+    </div>
   );
 };

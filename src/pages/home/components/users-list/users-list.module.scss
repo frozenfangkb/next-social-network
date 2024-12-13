@@ -24,6 +24,9 @@
 
 .usersContainer {
   @apply flex flex-col gap-2 overflow-y-auto;
+
+  width: 40vw;
+  height: 42.5vh;
 }
 
 .usersCard {

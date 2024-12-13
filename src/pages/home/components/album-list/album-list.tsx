@@ -5,14 +5,15 @@ import { usePhotos } from '@/modules/photo/api/hooks/use-photos.ts';
 
 interface UserAlbumListProps {
   albums: Album[];
+  isRecent?: boolean;
 }
 
-export const AlbumList = ({ albums }: UserAlbumListProps) => {
+export const AlbumList = ({ albums, isRecent }: UserAlbumListProps) => {
   const { getAlbumPhotos } = usePhotos();
 
   return (
     <div className={styles.container}>
-      <h1>Albums</h1>
+      <h1>{isRecent ? 'Recent albums' : 'Albums'}</h1>
       <div className={styles.itemList}>
         {albums.map(album => (
           <div className={styles.item}>

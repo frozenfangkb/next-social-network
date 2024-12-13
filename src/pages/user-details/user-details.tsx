@@ -7,6 +7,7 @@ import { useUsers } from '@/modules/user/api/hooks/use-users.ts';
 import { AlbumGroup } from '@/modules/shared/components/album-group/album-group.tsx';
 import { UserDetailsData } from '@/pages/home/components/user-details-data/user-details-data.tsx';
 import { AlbumList } from '@/pages/home/components/album-list/album-list.tsx';
+import { useMemo } from 'react';
 
 export const UserDetails = () => {
   const params = useParams();
@@ -17,6 +18,10 @@ export const UserDetails = () => {
 
   const userData = getUserData(Number(userId));
   const albums = data?.filter(album => album.userId === Number(userId));
+
+  useMemo(() => {
+    localStorage.setItem('recentAlbums', JSON.stringify(albums));
+  }, [albums]);
 
   return (
     <div className={styles.container}>
