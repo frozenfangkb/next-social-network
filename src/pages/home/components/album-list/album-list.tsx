@@ -16,12 +16,13 @@ export const AlbumList = ({ albums, isRecent }: UserAlbumListProps) => {
       <h1>{isRecent ? 'Recent albums' : 'Albums'}</h1>
       <div className={styles.itemList}>
         {albums.map(album => (
-          <div className={styles.item}>
+          <div key={album.id} className={styles.item}>
             <p>{album.title}</p>
             <div>
               <div className={styles.albumList}>
                 {getAlbumPhotos(album.id)?.map(photo => (
                   <img
+                    key={photo.id}
                     src={photo.thumbnailUrl}
                     alt={photo.title}
                     width='100'
