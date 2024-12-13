@@ -1,4 +1,4 @@
-import { api } from '../../../api/api.ts';
+import { api } from '@/api/api.ts';
 import { UserSchema } from './types.ts';
 
 export const getUsers = async (): Promise<UserSchema[]> => {

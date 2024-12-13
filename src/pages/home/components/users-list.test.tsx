@@ -1,10 +1,10 @@
 import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { UsersList } from './users-list';
-import { useUsers } from '../../../modules/user/api/hooks/use-users.ts';
-import { Company, User } from '../../../modules/user/models/user.ts';
+import { useUsers } from '@/modules/user/api/hooks/use-users.ts';
+import { Company, User } from '@/modules/user/models/user.ts';
 
-vi.mock('../../../modules/user/api/hooks/use-users.ts');
+vi.mock('@/modules/user/api/hooks/use-users.ts');
 
 const mockUseUsersValue = {
   useUsers: vi.fn(),

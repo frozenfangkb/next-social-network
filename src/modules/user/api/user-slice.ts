@@ -1,4 +1,4 @@
-import { apiSlice } from '../../../store/slices/api-slice.ts';
+import { apiSlice } from '@/store/slices/api-slice.ts';
 import { User } from '../models/user.ts';
 import { getUsers } from './user-service.ts';
 import { adaptUserSchemaToModel } from './user-adapters.ts';
